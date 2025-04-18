@@ -26,7 +26,7 @@ A mood-based calendar and journal built in Java using Maven. This app lets users
 
 ```bash
 # Clone the repository
-git clone https://github.com/Kurt0913/mood-calendar-app.git
+git clone https://github.com/Kurt0913/mood_calendar.git
 
 # Navigate into the project directory
 cd mood-calendar-app
