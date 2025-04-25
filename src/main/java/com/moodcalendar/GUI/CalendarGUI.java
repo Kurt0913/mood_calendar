@@ -1,5 +1,6 @@
 package com.moodcalendar.GUI;
 
+import com.moodcalendar.Managers.MoodChartManager;
 import com.moodcalendar.Managers.MoodManager;
 import com.moodcalendar.Managers.TaskManager;
 import com.moodcalendar.Models.MoodEntry;
@@ -33,10 +34,12 @@ public class CalendarGUI {
     private JTextPane moodTextPane;
     private TaskManager taskManager;
     private MoodManager moodManager;
+    private MoodChartManager moodChartManager;
 
     public CalendarGUI(TaskManager taskManager, MoodManager moodManager) {
         this.taskManager = taskManager;
         this.moodManager = moodManager;
+        this.moodChartManager = new MoodChartManager(moodManager);  // Initialize MoodChartManager
         initialize();
     }
 
@@ -88,19 +91,25 @@ public class CalendarGUI {
         JButton addTaskButton = new JButton("Add Task");
         JButton addMoodButton = new JButton("Add Mood");
         JButton manageTaskButton = new JButton("Manage Tasks");
+        JButton showMoodChartButton = new JButton("Show Mood Chart");  // Button to show mood chart
     
         addTaskButton.addActionListener((ActionEvent e) -> addTaskEntry());
         addMoodButton.addActionListener((ActionEvent e) -> addMoodEntry());
         manageTaskButton.addActionListener((ActionEvent e) -> manageTasks());
     
+        // ActionListener to show the mood chart
+        showMoodChartButton.addActionListener((ActionEvent e) -> {
+            Date selectedDate = calendar.getDate();  // Get selected date from JCalendar
+            moodChartManager.showMonthlyMoodChart(selectedDate);  // Show the mood chart
+        });
+    
         buttonPanel.add(addTaskButton);
         buttonPanel.add(addMoodButton);
         buttonPanel.add(manageTaskButton);
+        buttonPanel.add(showMoodChartButton);  // Add the button to the panel
     
         // Update display when a date is selected
         calendar.getDayChooser().addPropertyChangeListener("day", e -> updateDisplay());
-    
-        // Removed the initial call to updateDisplay()
     }
 
     private void addTaskEntry() {
@@ -450,7 +459,6 @@ private void editTask(Task selectedTask) {
         }
         moodTextPane.setText(moodList.length() > 0 ? moodList.toString() : "No mood entries for this day.");
     }
-
     public void show() {
         frame.setVisible(true);
     }

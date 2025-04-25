@@ -42,6 +42,11 @@ public class MoodManager {
                 .collect(Collectors.toList());
     }
 
+    // Retrieve all mood entries
+    public List<MoodEntry> getAllMoods() {
+        return new ArrayList<>(moodEntries);  // Return a copy of the list to avoid direct modification
+    }
+
     // Save moods to a file
     public void saveMoods() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(MOODS_FILE))) {
