@@ -45,6 +45,16 @@ public class CalendarGUI {
 
     private void initialize() {
         frame = new JFrame("Mood & Task Calendar");
+        try {
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/icon.png"));
+        frame.setIconImage(icon);
+        } 
+        catch (Exception e) {
+        System.out.println("Icon not found or could not be loaded.");
+        }
+        frame.setSize(900, 600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(new BorderLayout(10, 10));
         frame.setSize(900, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout(10, 10));
